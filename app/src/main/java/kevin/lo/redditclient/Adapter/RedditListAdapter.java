@@ -25,8 +25,8 @@ public class RedditListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void addItems(List<RedditListModel> modelList) {
-        Log.e(TAG, "addItems: added " + modelList.size());
-        Log.e(TAG, "total size " + models.size());
+        Log.i(TAG, "addItems: added " + modelList.size());
+        Log.i(TAG, "total size " + models.size());
         this.models.addAll(modelList);
     }
 

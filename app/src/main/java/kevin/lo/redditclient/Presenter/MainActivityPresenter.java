@@ -68,6 +68,7 @@ public class MainActivityPresenter implements MainActivityPresentable {
 
                     @Override
                     public void onNext(TopListing topListing) {
+                        Log.i(TAG, "getTopRedditListings onNext");
                         models = buildModelFromDataReturned(topListing);
 
                         if (nextPageToken == null) {
@@ -86,11 +87,11 @@ public class MainActivityPresenter implements MainActivityPresentable {
     @Override
     public void onReceiveLoadMoreRequest(int currentSize, int totalSize) {
         if (currentSize < totalSize) {
-            Log.e(TAG, "onLoadMore");
+            Log.i(TAG, "onLoadMore");
             getTopRedditListings();
         }
         else {
-            Log.e(TAG, "Already have all.");
+            Log.i(TAG, "Already have all.");
         }
     }
 
@@ -100,7 +101,6 @@ public class MainActivityPresenter implements MainActivityPresentable {
     }
 
     private ArrayList<RedditListModel> buildModelFromDataReturned(TopListing topListing) {
-
         ArrayList<RedditListModel> modelList = new ArrayList<>();
         List<Child> children = topListing.getData().getChildren();
 
@@ -128,6 +128,11 @@ public class MainActivityPresenter implements MainActivityPresentable {
         return model;
     }
 
+    /**
+     * Get the full size image URL
+     * @param preview
+     * @return
+     */
     private String getPreviewSourceImageUrl(Preview preview) {
         if (preview.getImages() != null && preview.getImages().get(0) != null &&
                 preview.getImages().get(0).getSource() != null) {
