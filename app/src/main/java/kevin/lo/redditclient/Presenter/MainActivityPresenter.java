@@ -45,13 +45,22 @@ public class MainActivityPresenter implements MainActivityPresentable {
         this.nextPageToken = token;
 
         if (models == null) {
+            /**
+             * No saved listings from before. Fetch listings from server.
+             */
             getTopRedditListings();
         }
         else {
+            /**
+             * Populate the list using the listings and token saved.
+             */
             page.initializeListAdapter(models, token);
         }
     }
 
+    /**
+     * Get PAGE_SIZE number of listings from server, using token whenever applicable.
+     */
     @Override
     public void getTopRedditListings() {
         subscription.add(
@@ -84,6 +93,12 @@ public class MainActivityPresenter implements MainActivityPresentable {
         );
     }
 
+    /**
+     * If the list is not fully fetched, then get more listings from server.
+     * Total size is specified @ MainActivity, dictated by server.
+     * @param currentSize
+     * @param totalSize
+     */
     @Override
     public void onReceiveLoadMoreRequest(int currentSize, int totalSize) {
         if (currentSize < totalSize) {
@@ -95,6 +110,9 @@ public class MainActivityPresenter implements MainActivityPresentable {
         }
     }
 
+    /**
+     * Clean up Rx to avoid memory leak
+     */
     @Override
     public void onDestroy() {
         subscription.unsubscribe();
@@ -110,6 +128,11 @@ public class MainActivityPresenter implements MainActivityPresentable {
         return modelList;
     }
 
+    /**
+     * Populate the model for the UI from server data.
+     * @param listData
+     * @return
+     */
     private RedditListModel setModel(Data_ listData) {
         RedditListModel model = new RedditListModel();
         model.setTitle(listData.getTitle());

@@ -58,7 +58,10 @@ public class RedditListViewHolder extends RecyclerView.ViewHolder {
 
             thumbnail = (ImageView) listView.findViewById(R.id.thumbnail);
             if (model.getThumbnailUrl() != null) {
-                if (thumbnail.getVisibility() == View.GONE) {
+                /**
+                 * Need to set to visible if the previously used field is set to GONE
+                 */
+                if (thumbnail.getVisibility() != View.VISIBLE) {
                     thumbnail.setVisibility(View.VISIBLE);
                 }
                 PicassoFactory.INSTANCE
@@ -74,7 +77,9 @@ public class RedditListViewHolder extends RecyclerView.ViewHolder {
                 });
             }
             else {
-                // hide the thumb nail image if there are no larger image available to show
+                /**
+                 hide the thumb nail image if there are no larger image available to show
+                 **/
                 thumbnail.setVisibility(View.GONE);
             }
         }

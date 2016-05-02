@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPage,
 
         // Initialize presenter
         presenter = new MainActivityPresenter(this);
+        presenter.onInit(api, modelList, nextPageToken);
 
         // Initialize the recycler view
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -88,8 +89,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityPage,
                 presenter.onReceiveLoadMoreRequest(redditListAdapter.getItemCount(), NUMBER_OF_REDDIT_TOP_LISTINGS);
             }
         });
-
-        presenter.onInit(api, modelList, nextPageToken);
     }
 
     @Override
