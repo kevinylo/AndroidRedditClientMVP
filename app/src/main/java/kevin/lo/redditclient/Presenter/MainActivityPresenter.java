@@ -6,6 +6,8 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import kevin.lo.redditclient.Model.RedditListModel;
 import kevin.lo.redditclient.Util.TimeConverter;
 import kevin.lo.redditclient.activity.MainActivityPage;
@@ -32,8 +34,11 @@ public class MainActivityPresenter implements MainActivityPresentable {
 
     private String nextPageToken;
 
-    private CompositeSubscription subscription = new CompositeSubscription();
+    @Inject
+    protected CompositeSubscription subscription;
+    //private CompositeSubscription subscription = new CompositeSubscription();
 
+    @Inject
     public MainActivityPresenter(MainActivityPage page) {
         this.page = page;
     }

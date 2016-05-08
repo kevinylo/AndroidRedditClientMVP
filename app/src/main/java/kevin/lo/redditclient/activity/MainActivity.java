@@ -9,10 +9,15 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import kevin.lo.redditclient.Adapter.EndlessRecyclerViewScrollListener;
 import kevin.lo.redditclient.Adapter.RedditListAdapter;
 import kevin.lo.redditclient.Adapter.RedditListViewHolder;
+import kevin.lo.redditclient.Component.Components;
+import kevin.lo.redditclient.Component.MainActivityComponent;
 import kevin.lo.redditclient.Model.RedditListModel;
+import kevin.lo.redditclient.Module.MainActivityModule;
 import kevin.lo.redditclient.Presenter.MainActivityPresentable;
 import kevin.lo.redditclient.Presenter.MainActivityPresenter;
 import kevin.lo.redditclient.R;
@@ -36,7 +41,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityPage,
 
     private Api api;
 
-    private MainActivityPresentable presenter;
+    @Inject
+    protected MainActivityPresentable presenter;
 
     private ArrayList<RedditListModel> modelList;
 
@@ -45,6 +51,16 @@ public class MainActivity extends AppCompatActivity implements MainActivityPage,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /**
+         * Dagger 2 initialization
+         */
+        Components.initialize(this.getApplication());
+        MainActivityComponent mainActivityComponent =
+                Components.get().app().with(new MainActivityModule(this));
+        mainActivityComponent.inject(this);
+        mainActivityComponent.inject((MainActivityPresenter) presenter);
+
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState != null) {
@@ -77,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPage,
         api = new Api(this);
 
         // Initialize presenter
-        presenter = new MainActivityPresenter(this);
+        //presenter = new MainActivityPresenter(this);
         presenter.onInit(api, modelList, nextPageToken);
 
         // Initialize the recycler view
