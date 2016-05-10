@@ -8,7 +8,7 @@ import kevin.lo.redditclient.communication.Api;
 
 public interface MainActivityPresentable {
 
-    void onInit(Api api, ArrayList<RedditListModel> modelArrayList, String token);
+    void onInit(ArrayList<RedditListModel> modelArrayList, String token);
 
     void getTopRedditListings();
 

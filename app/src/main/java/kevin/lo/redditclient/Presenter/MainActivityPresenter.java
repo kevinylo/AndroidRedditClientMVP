@@ -26,8 +26,6 @@ public class MainActivityPresenter implements MainActivityPresentable {
 
     private static final String PAGE_SIZE = "10";
 
-    private Api api;
-
     private MainActivityPage page;
 
     private ArrayList<RedditListModel> models;
@@ -35,8 +33,10 @@ public class MainActivityPresenter implements MainActivityPresentable {
     private String nextPageToken;
 
     @Inject
+    protected Api api;
+
+    @Inject
     protected CompositeSubscription subscription;
-    //private CompositeSubscription subscription = new CompositeSubscription();
 
     @Inject
     public MainActivityPresenter(MainActivityPage page) {
@@ -44,8 +44,7 @@ public class MainActivityPresenter implements MainActivityPresentable {
     }
 
     @Override
-    public void onInit(Api api, ArrayList<RedditListModel> modelArrayList, String token) {
-        this.api = api;
+    public void onInit(ArrayList<RedditListModel> modelArrayList, String token) {
         this.models = modelArrayList;
         this.nextPageToken = token;
 

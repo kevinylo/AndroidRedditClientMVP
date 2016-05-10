@@ -39,8 +39,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityPage,
 
     private RedditListAdapter redditListAdapter;
 
-    private Api api;
-
     @Inject
     protected MainActivityPresentable presenter;
 
@@ -89,12 +87,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPage,
     }
 
     private void init() {
-        // Initialize the api
-        api = new Api(this);
-
-        // Initialize presenter
-        //presenter = new MainActivityPresenter(this);
-        presenter.onInit(api, modelList, nextPageToken);
+        presenter.onInit(modelList, nextPageToken);
 
         // Initialize the recycler view
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

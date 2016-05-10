@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import kevin.lo.redditclient.communication.Api;
 
 
 @Module
@@ -22,6 +23,12 @@ public class AppModule {
     @Singleton
     public Context provideContext() {
         return application.getApplicationContext();
+    }
+
+    @Provides
+    @Singleton
+    public Api provideApi() {
+        return new Api(application.getApplicationContext());
     }
 
 }

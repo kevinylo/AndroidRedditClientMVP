@@ -7,6 +7,7 @@ import dagger.Provides;
 import kevin.lo.redditclient.Presenter.MainActivityPresentable;
 import kevin.lo.redditclient.Presenter.MainActivityPresenter;
 import kevin.lo.redditclient.activity.MainActivityPage;
+import kevin.lo.redditclient.communication.Api;
 import rx.subscriptions.CompositeSubscription;
 
 
@@ -21,7 +22,7 @@ public class MainActivityModule {
     }
 
     @Provides
-    public MainActivityPresentable provideUsedSearchResultsPresentable() {
+    public MainActivityPresentable provideMainActivityPresentable() {
         return new MainActivityPresenter(page);
     }
 
